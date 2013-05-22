@@ -12,7 +12,7 @@ License: MIT
 Url:     http://fedorahosted.org/kde-settings
 Source0: https://fedorahosted.org/releases/k/d/kde-settings/%{name}-%{version}-%{rel}.tar.xz
 Source1: COPYING
-Patch0:  kororaa-kdesettings.patch
+Patch0:  korora-kdesettings.patch
 BuildArch: noarch
 
 BuildRequires: kde-filesystem
