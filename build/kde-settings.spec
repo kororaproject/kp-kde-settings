@@ -1,11 +1,9 @@
-# THIS SPECFILE IS FOR F18 ONLY!
-
-%global rel 19
-%global system_kde_theme_ver 17.91
+%global rel 20 
+%global system_kde_theme_ver 18.91
 
 Summary: Config files for kde
 Name:    kde-settings
-Version: 4.9
+Version: 19
 Release: %{rel}%{?dist}
 
 License: MIT
@@ -23,8 +21,10 @@ Requires: kde-filesystem
 Requires: pam
 Requires: xdg-user-dirs
 Requires: adwaita-cursor-theme
-# /usr/share/polkit-1/rules.d/ ownership
-Requires: polkit >= 0.106
+%if 0%{?fedora}
+# for 11-fedora-kde-policy.rules
+Requires: polkit-js-engine
+%endif
 
 Requires(post): coreutils sed
 
@@ -48,7 +48,6 @@ Requires: system-kdm-theme >= %{system_kde_theme_ver}
 %else
 Requires: redhat-logos >= 69.0.0
 %endif
-
 Requires: xorg-x11-xinit
 Requires(pre): coreutils
 Requires(post): coreutils grep sed
@@ -146,7 +145,6 @@ perl -pi -e "s,^View0_URL=.*,View0_URL=file:///usr/share/doc/HTML/index.html," %
 %config(noreplace) %{_sysconfdir}/profile.d/kde.*
 %{_sysconfdir}/kde/env/env.sh
 %{_sysconfdir}/kde/env/gtk2_rc_files.sh
-%{_sysconfdir}/kde/env/fedora-kde-display-handler.sh
 %if 0%{?fedora}
 %{_sysconfdir}/kde/env/fedora-bookmarks.sh
 %{_datadir}/kde-settings/
@@ -163,6 +161,7 @@ perl -pi -e "s,^View0_URL=.*,View0_URL=file:///usr/share/doc/HTML/index.html," %
 %dir %{_datadir}/kde-settings/
 %dir %{_datadir}/kde-settings/kde-profile/
 %{_datadir}/kde-settings/kde-profile/default/
+%{_kde4_appsdir}/kconf_update/fedora-kde-display-handler.*
 %if 0%{?rhel}
 %exclude %{_datadir}/kde-settings/kde-profile/default/share/apps/plasma-desktop/init/00-defaultLayout.js
 %endif
@@ -202,7 +201,7 @@ perl -pi -e "s,^View0_URL=.*,View0_URL=file:///usr/share/doc/HTML/index.html," %
 # own logrotate.d/ avoiding hard dep on logrotate
 %dir %{_sysconfdir}/logrotate.d
 %config(noreplace) %{_sysconfdir}/logrotate.d/kdm
-%{_prefix}/lib/tmpfiles.d/kdm.conf
+%{_tmpfilesdir}/kdm.conf
 %attr(0711,root,root) %dir %{_localstatedir}/run/kdm
 %attr(0711,root,root) %dir %{_localstatedir}/run/xdmctl
 %{_unitdir}/kdm.service
@@ -224,45 +223,74 @@ perl -pi -e "s,^View0_URL=.*,View0_URL=file:///usr/share/doc/HTML/index.html," %
 
 
 %changelog
-* Tue Jan 29 2013 Dan Vrátil <dvratil@redhat.com> 4.9-19
-- use return instead of exit in fedora-kde-display-handler.sh (#905371)
+* Mon May 13 2013 Rex Dieter <rdieter@fedoraproject.org> 19-20
+- plymouth-quit-wait service fails resulting in very long boot time (#921785)
 
-* Mon Jan 28 2013 Rex Dieter <rdieter@fedoraproject.org> 4.9-18
-- +fedora-kde-display-handler.sh
+* Wed Apr 24 2013 Martin Briza <mbriza@redhat.com> 19-19
+- Return to the usual X server invocation in case there's no systemd provided wrapper
 
-* Tue Dec 04 2012 Rex Dieter <rdieter@fedoraproject.org> 4.9-17
+* Wed Apr 24 2013 Daniel Vrátil <dvratil@redhat.com> 19-18
+- remove Mugshot from Konqueror bookmarks (#951279)
+
+* Mon Apr 15 2013 Martin Briza <mbriza@redhat.com> 19-17.2
+- so depending on /lib/systemd/systemd-multi-seat-x is considered a broken dependency - kdm depends on systemd instead
+
+* Sat Apr 13 2013 Rex Dieter <rdieter@fedoraproject.org> 19-17.1
+- use %%_tmpfilesdir macro
+
+* Thu Apr 11 2013 Martin Briza <mbriza@redhat.com> 19-17
+- Use /lib/systemd/systemd-multi-seat-x as the X server in KDM
+
+* Wed Apr 03 2013 Martin Briza <mbriza@redhat.com> 19-16
+- Fedora release number was wrong in /etc/kde/kdm/kdmrc
+
+* Wed Apr 03 2013 Martin Briza <mbriza@redhat.com> 19-15
+- Fixed KDM theme name in /etc
+
+* Thu Mar 28 2013 Martin Briza <mbriza@redhat.com> 19-14
+- Changed the strings in the settings to Schrödinger's Cat instead of Spherical Cow
+
+* Mon Feb 04 2013 Kevin Kofler <Kevin@tigcc.ticalc.org> 19-13.1
+- Requires: polkit-js-engine
+
+* Mon Jan 28 2013 Rex Dieter <rdieter@fedoraproject.org> 19-13
+- +fedora-kde-display-handler kconf_update script
+
+* Wed Dec 05 2012 Rex Dieter <rdieter@fedoraproject.org> 19-12
+- plasma4.req: be more careful wrt IFS
+
+* Tue Dec 04 2012 Rex Dieter <rdieter@fedoraproject.org> 19-11
 - plasma4.req: allow for > 1 scriptengine
 
-* Tue Nov 27 2012 Dan Vratil <dvratil@redhat.com> 4.9-16
+* Tue Nov 27 2012 Dan Vratil <dvratil@redhat.com> 19-10
 - provide kwin rules to fix maximization of some Gtk2 apps
 
-* Sat Nov 10 2012 Rex Dieter <rdieter@fedoraproject.org> 4.9-15.1
-- fixup kdmrc for upgrader's who had UserAuthDir=/var/run/kdm
+* Sun Nov 11 2012 Rex Dieter <rdieter@fedoraproject.org> 19-9.1
+- fixup kdmrc for upgraders who had UserAuthDir=/var/run/kdm
 
-* Thu Nov 08 2012 Rex Dieter <rdieter@fedoraproject.org> 4.9-15
-- tighten permissions on /var/run/kdm (#830433)
+* Thu Nov 08 2012 Rex Dieter <rdieter@fedoraproject.org> 19-9
+- tighten permissions on /var/run/kdm
 - support /var/run/xdmctl
 
-* Fri Oct 12 2012 Kevin Kofler <Kevin@tigcc.ticalc.org> 4.9-14
+* Fri Oct 12 2012 Kevin Kofler <Kevin@tigcc.ticalc.org> 19-8
 - kslideshow.kssrc: use xdg-user-dir instead of hardcoding $HOME/Pictures
 
-* Fri Oct 12 2012 Kevin Kofler <Kevin@tigcc.ticalc.org> 4.9-13
+* Fri Oct 12 2012 Kevin Kofler <Kevin@tigcc.ticalc.org> 19-7
 - port 11-fedora-kde-policy from old pkla format to new polkit-1 rules (#829881)
 - nepomukstrigirc: index translated xdg-user-dirs (dvratil, #861129)
 
-* Thu Sep 27 2012 Dan Vratil <dvratil@redhat.com> 4.9-11
+* Thu Sep 27 2012 Dan Vratil <dvratil@redhat.com> 19-5
 - fix indexing paths in nepomukstrigirc (#861129)
 
-* Mon Sep 24 2012 Rex Dieter <rdieter@fedoraproject.org> 4.9-10
+* Mon Sep 24 2012 Rex Dieter <rdieter@fedoraproject.org> 19-4
 - -minimal subpkg
 
-* Tue Sep 04 2012 Dan Vratil <dvratil@redhat.com> 4.9-9
+* Tue Sep 04 2012 Dan Vratil <dvratil@redhat.com> 19-3
+- add 81-fedora-kdm-preset (#850775)
 - start kdm.service after livesys-late.service
 
-* Wed Aug 29 2012 Rex Dieter <rdieter@fedoraproject.org> 4.9-8
-- add 81-fedora-kdm.preset (#852844)
-
-* Wed Aug 29 2012 Rex Dieter <rdieter@fedoraproject.org> 4.9-7
+* Wed Aug 29 2012 Rex Dieter <rdieter@fedoraproject.org> - 19-1
+- reset Version to match target fedora release (19)
 - kdm.pam: pam_gnome_keyring.so should be loaded after pam_systemd.so (#852723)
 
 * Tue Aug 21 2012 Martin Briza <mbriza@redhat.com> 4.9-5

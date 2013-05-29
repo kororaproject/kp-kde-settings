@@ -1,9 +1,0 @@
-[Favorites]
-FavoriteURLs=kpk_addrm.desktop,kpk_update.desktop,/usr/share/applications/kde4/systemsettings.desktop,/usr/share/applications/mozilla-firefox.desktop,/usr/share/applications/kde4/choqok.desktop,/usr/share/applications/kde4/dolphin.desktop,/usr/share/applications/kde4/konsole.desktop
-
-[KRunner]
-loadAll=false
-
-[KRunner][PlasmaRunnerManager]
-pluginWhiteList=places,shell,services,bookmarks,recentdocuments,locations
-
