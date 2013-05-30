@@ -1,40 +1,40 @@
-diff -Nurd kde-settings-4.8-13-orig/usr/share/kde-settings/kde-profile/default/share/config/activitymanagerrc kde-settings-4.8-13/usr/share/kde-settings/kde-profile/default/share/config/activitymanagerrc
---- kde-settings-4.8-13-orig/usr/share/kde-settings/kde-profile/default/share/config/activitymanagerrc	1970-01-01 10:00:00.000000000 +1000
-+++ kde-settings-4.8-13/usr/share/kde-settings/kde-profile/default/share/config/activitymanagerrc	2012-05-25 09:34:00.229582950 +1000
+diff -Nurd kde-settings-19-20-orig/usr/share/kde-settings/kde-profile/default/share/config/activitymanagerrc kde-settings-19-20/usr/share/kde-settings/kde-profile/default/share/config/activitymanagerrc
+--- kde-settings-19-20-orig/usr/share/kde-settings/kde-profile/default/share/config/activitymanagerrc	1970-01-01 10:00:00.000000000 +1000
++++ kde-settings-19-20/usr/share/kde-settings/kde-profile/default/share/config/activitymanagerrc	2013-05-30 14:13:52.876846318 +1000
 @@ -0,0 +1,5 @@
 +[activities]
 +5a2687b3-214c-47e1-bff4-f73f420153bd=New Activity
 +
 +[main]
 +currentActivity=5a2687b3-214c-47e1-bff4-f73f420153bd
-diff -Nurd kde-settings-4.8-13-orig/usr/share/kde-settings/kde-profile/default/share/config/default_components kde-settings-4.8-13/usr/share/kde-settings/kde-profile/default/share/config/default_components
---- kde-settings-4.8-13-orig/usr/share/kde-settings/kde-profile/default/share/config/default_components	1970-01-01 10:00:00.000000000 +1000
-+++ kde-settings-4.8-13/usr/share/kde-settings/kde-profile/default/share/config/default_components	2012-05-25 09:35:04.446063146 +1000
+diff -Nurd kde-settings-19-20-orig/usr/share/kde-settings/kde-profile/default/share/config/default_components kde-settings-19-20/usr/share/kde-settings/kde-profile/default/share/config/default_components
+--- kde-settings-19-20-orig/usr/share/kde-settings/kde-profile/default/share/config/default_components	1970-01-01 10:00:00.000000000 +1000
++++ kde-settings-19-20/usr/share/kde-settings/kde-profile/default/share/config/default_components	2013-05-30 14:13:52.876846318 +1000
 @@ -0,0 +1,2 @@
 +[InstantMessenger]
 +imClient[$e]=ktp-contactlist
-diff -Nurd kde-settings-4.8-13-orig/usr/share/kde-settings/kde-profile/default/share/config/dolphinrc kde-settings-4.8-13/usr/share/kde-settings/kde-profile/default/share/config/dolphinrc
---- kde-settings-4.8-13-orig/usr/share/kde-settings/kde-profile/default/share/config/dolphinrc	1970-01-01 10:00:00.000000000 +1000
-+++ kde-settings-4.8-13/usr/share/kde-settings/kde-profile/default/share/config/dolphinrc	2012-05-25 09:34:00.229582950 +1000
+diff -Nurd kde-settings-19-20-orig/usr/share/kde-settings/kde-profile/default/share/config/dolphinrc kde-settings-19-20/usr/share/kde-settings/kde-profile/default/share/config/dolphinrc
+--- kde-settings-19-20-orig/usr/share/kde-settings/kde-profile/default/share/config/dolphinrc	1970-01-01 10:00:00.000000000 +1000
++++ kde-settings-19-20/usr/share/kde-settings/kde-profile/default/share/config/dolphinrc	2013-05-30 14:13:52.876846318 +1000
 @@ -0,0 +1,2 @@
 +[PreviewSettings]
 +Plugins=directorythumbnail,djvuthumbnail,fontthumbnail,htmlthumbnail,imagethumbnail,jpegthumbnail,gsthumbnail,rawthumbnail,svgthumbnail,textthumbnail,ffmpegthumbs
-diff -Nurd kde-settings-4.8-13-orig/usr/share/kde-settings/kde-profile/default/share/config/kcmcddbrc kde-settings-4.8-13/usr/share/kde-settings/kde-profile/default/share/config/kcmcddbrc
---- kde-settings-4.8-13-orig/usr/share/kde-settings/kde-profile/default/share/config/kcmcddbrc	1970-01-01 10:00:00.000000000 +1000
-+++ kde-settings-4.8-13/usr/share/kde-settings/kde-profile/default/share/config/kcmcddbrc	2012-05-25 09:34:00.562580327 +1000
+diff -Nurd kde-settings-19-20-orig/usr/share/kde-settings/kde-profile/default/share/config/kcmcddbrc kde-settings-19-20/usr/share/kde-settings/kde-profile/default/share/config/kcmcddbrc
+--- kde-settings-19-20-orig/usr/share/kde-settings/kde-profile/default/share/config/kcmcddbrc	1970-01-01 10:00:00.000000000 +1000
++++ kde-settings-19-20/usr/share/kde-settings/kde-profile/default/share/config/kcmcddbrc	2013-05-30 14:13:52.876846318 +1000
 @@ -0,0 +1,2 @@
 +[Lookup]
 +MusicBrainzLookupEnabled=true
-diff -Nurd kde-settings-4.8-13-orig/usr/share/kde-settings/kde-profile/default/share/config/kcmfonts kde-settings-4.8-13/usr/share/kde-settings/kde-profile/default/share/config/kcmfonts
---- kde-settings-4.8-13-orig/usr/share/kde-settings/kde-profile/default/share/config/kcmfonts	1970-01-01 10:00:00.000000000 +1000
-+++ kde-settings-4.8-13/usr/share/kde-settings/kde-profile/default/share/config/kcmfonts	2012-05-25 09:34:00.562580327 +1000
+diff -Nurd kde-settings-19-20-orig/usr/share/kde-settings/kde-profile/default/share/config/kcmfonts kde-settings-19-20/usr/share/kde-settings/kde-profile/default/share/config/kcmfonts
+--- kde-settings-19-20-orig/usr/share/kde-settings/kde-profile/default/share/config/kcmfonts	1970-01-01 10:00:00.000000000 +1000
++++ kde-settings-19-20/usr/share/kde-settings/kde-profile/default/share/config/kcmfonts	2013-05-30 14:13:52.877846313 +1000
 @@ -0,0 +1,3 @@
 +[General]
 +dontChangeAASettings=false
 +forceFontDPI=96
-diff -Nurd kde-settings-4.8-13-orig/usr/share/kde-settings/kde-profile/default/share/config/kdeglobals kde-settings-4.8-13/usr/share/kde-settings/kde-profile/default/share/config/kdeglobals
---- kde-settings-4.8-13-orig/usr/share/kde-settings/kde-profile/default/share/config/kdeglobals	2010-09-04 00:30:38.000000000 +1000
-+++ kde-settings-4.8-13/usr/share/kde-settings/kde-profile/default/share/config/kdeglobals	2012-05-25 09:34:00.563580308 +1000
+diff -Nurd kde-settings-19-20-orig/usr/share/kde-settings/kde-profile/default/share/config/kdeglobals kde-settings-19-20/usr/share/kde-settings/kde-profile/default/share/config/kdeglobals
+--- kde-settings-19-20-orig/usr/share/kde-settings/kde-profile/default/share/config/kdeglobals	2010-09-04 00:30:38.000000000 +1000
++++ kde-settings-19-20/usr/share/kde-settings/kde-profile/default/share/config/kdeglobals	2013-05-30 14:13:52.877846313 +1000
 @@ -3,6 +3,9 @@
  AutoCheckAccelerators=false
  
@@ -56,18 +56,18 @@ diff -Nurd kde-settings-4.8-13-orig/usr/share/kde-settings/kde-profile/default/s
 +
 +[KDE]
 +SingleClick=false
-diff -Nurd kde-settings-4.8-13-orig/usr/share/kde-settings/kde-profile/default/share/config/kde.notifyrc kde-settings-4.8-13/usr/share/kde-settings/kde-profile/default/share/config/kde.notifyrc
---- kde-settings-4.8-13-orig/usr/share/kde-settings/kde-profile/default/share/config/kde.notifyrc	1970-01-01 10:00:00.000000000 +1000
-+++ kde-settings-4.8-13/usr/share/kde-settings/kde-profile/default/share/config/kde.notifyrc	2012-05-25 09:34:00.563580308 +1000
+diff -Nurd kde-settings-19-20-orig/usr/share/kde-settings/kde-profile/default/share/config/kde.notifyrc kde-settings-19-20/usr/share/kde-settings/kde-profile/default/share/config/kde.notifyrc
+--- kde-settings-19-20-orig/usr/share/kde-settings/kde-profile/default/share/config/kde.notifyrc	1970-01-01 10:00:00.000000000 +1000
++++ kde-settings-19-20/usr/share/kde-settings/kde-profile/default/share/config/kde.notifyrc	2013-05-30 14:13:52.877846313 +1000
 @@ -0,0 +1,5 @@
 +[Event/exitkde]
 +Action=
 +Execute=
 +KTTS=
 +Logfile=
-diff -Nurd kde-settings-4.8-13-orig/usr/share/kde-settings/kde-profile/default/share/config/kickoffrc kde-settings-4.8-13/usr/share/kde-settings/kde-profile/default/share/config/kickoffrc
---- kde-settings-4.8-13-orig/usr/share/kde-settings/kde-profile/default/share/config/kickoffrc	1970-01-01 10:00:00.000000000 +1000
-+++ kde-settings-4.8-13/usr/share/kde-settings/kde-profile/default/share/config/kickoffrc	2012-05-25 09:34:00.564580291 +1000
+diff -Nurd kde-settings-19-20-orig/usr/share/kde-settings/kde-profile/default/share/config/kickoffrc kde-settings-19-20/usr/share/kde-settings/kde-profile/default/share/config/kickoffrc
+--- kde-settings-19-20-orig/usr/share/kde-settings/kde-profile/default/share/config/kickoffrc	1970-01-01 10:00:00.000000000 +1000
++++ kde-settings-19-20/usr/share/kde-settings/kde-profile/default/share/config/kickoffrc	2013-05-30 14:13:52.877846313 +1000
 @@ -0,0 +1,9 @@
 +[Favorites]
 +FavoriteURLs=/usr/share/applications/kde4/apper.desktop,/usr/share/applications/kde4/systemsettings.desktop,/usr/share/applications/firefox.desktop,/usr/share/applications/kde4/dolphin.desktop,/usr/share/applications/kde4/konsole.desktop
@@ -78,30 +78,28 @@ diff -Nurd kde-settings-4.8-13-orig/usr/share/kde-settings/kde-profile/default/s
 +[KRunner][PlasmaRunnerManager]
 +pluginWhiteList=places,shell,services,bookmarks,recentdocuments,locations
 +
-diff -Nurd kde-settings-4.8-13-orig/usr/share/kde-settings/kde-profile/default/share/config/ksmserverrc kde-settings-4.8-13/usr/share/kde-settings/kde-profile/default/share/config/ksmserverrc
---- kde-settings-4.8-13-orig/usr/share/kde-settings/kde-profile/default/share/config/ksmserverrc	2009-01-17 01:25:39.000000000 +1100
-+++ kde-settings-4.8-13/usr/share/kde-settings/kde-profile/default/share/config/ksmserverrc	2012-05-25 09:34:00.564580291 +1000
+diff -Nurd kde-settings-19-20-orig/usr/share/kde-settings/kde-profile/default/share/config/ksmserverrc kde-settings-19-20/usr/share/kde-settings/kde-profile/default/share/config/ksmserverrc
+--- kde-settings-19-20-orig/usr/share/kde-settings/kde-profile/default/share/config/ksmserverrc	2009-01-17 01:25:39.000000000 +1100
++++ kde-settings-19-20/usr/share/kde-settings/kde-profile/default/share/config/ksmserverrc	2013-05-30 14:13:52.877846313 +1000
 @@ -1,4 +1,5 @@
  [General]
 +loginMode=restoreSavedSession
  screenCount=1
  
  [LegacySession: saved at previous logout]
-diff -Nurd kde-settings-4.8-13-orig/usr/share/kde-settings/kde-profile/default/share/config/servicetype_profilerc kde-settings-4.8-13/usr/share/kde-settings/kde-profile/default/share/config/servicetype_profilerc
---- kde-settings-4.8-13-orig/usr/share/kde-settings/kde-profile/default/share/config/servicetype_profilerc	1970-01-01 10:00:00.000000000 +1000
-+++ kde-settings-4.8-13/usr/share/kde-settings/kde-profile/default/share/config/servicetype_profilerc	2012-05-25 09:34:00.564580291 +1000
-@@ -0,0 +1,8 @@
+diff -Nurd kde-settings-19-20-orig/usr/share/kde-settings/kde-profile/default/share/config/servicetype_profilerc kde-settings-19-20/usr/share/kde-settings/kde-profile/default/share/config/servicetype_profilerc
+--- kde-settings-19-20-orig/usr/share/kde-settings/kde-profile/default/share/config/servicetype_profilerc	1970-01-01 10:00:00.000000000 +1000
++++ kde-settings-19-20/usr/share/kde-settings/kde-profile/default/share/config/servicetype_profilerc	2013-05-30 14:14:01.194802484 +1000
+@@ -0,0 +1,6 @@
 +[PhononBackend]
-+Entry0_Preference=3
-+Entry0_Service=phononbackends/xine.desktop
-+Entry1_Preference=2
++Entry0_Preference=2
++Entry0_Service=phononbackends/vlc.desktop
++Entry1_Preference=1
 +Entry1_Service=phononbackends/gstreamer.desktop
-+Entry2_Preference=1
-+Entry2_Service=phononbackends/vlc.desktop
-+NumberOfEntries=3
-diff -Nurd kde-settings-4.8-13-orig/usr/share/kde-settings/kde-profile/default/share/config/sonnetrc kde-settings-4.8-13/usr/share/kde-settings/kde-profile/default/share/config/sonnetrc
---- kde-settings-4.8-13-orig/usr/share/kde-settings/kde-profile/default/share/config/sonnetrc	1970-01-01 10:00:00.000000000 +1000
-+++ kde-settings-4.8-13/usr/share/kde-settings/kde-profile/default/share/config/sonnetrc	2012-05-25 09:34:00.565580276 +1000
++NumberOfEntries=2
+diff -Nurd kde-settings-19-20-orig/usr/share/kde-settings/kde-profile/default/share/config/sonnetrc kde-settings-19-20/usr/share/kde-settings/kde-profile/default/share/config/sonnetrc
+--- kde-settings-19-20-orig/usr/share/kde-settings/kde-profile/default/share/config/sonnetrc	1970-01-01 10:00:00.000000000 +1000
++++ kde-settings-19-20/usr/share/kde-settings/kde-profile/default/share/config/sonnetrc	2013-05-30 14:13:52.878846308 +1000
 @@ -0,0 +1,7 @@
 +[Spelling]
 +backgroundCheckerEnabled=true
