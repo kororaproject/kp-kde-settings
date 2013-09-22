@@ -5,7 +5,7 @@
 Summary: Config files for kde
 Name:    kde-settings
 Version: 19
-Release: %{rel}%{?dist}
+Release: %{rel}%{?dist}.2
 
 License: MIT
 Url:     http://fedorahosted.org/kde-settings
@@ -176,7 +176,7 @@ perl -pi -e "s,^View0_URL=.*,View0_URL=file:///usr/share/doc/HTML/index.html," %
 ) ||:
 
 %preun kdm
-%{?systemd_preun:%system_preun kdm.service}
+%{?systemd_preun:%systemd_preun kdm.service}
 
 %postun kdm
 %{?systemd_postun}
