@@ -1,26 +1,52 @@
 diff -Nurd kde-settings-19-23-orig/usr/share/kde-settings/kde-profile/default/share/applications/mimeapps.list kde-settings-19-23/usr/share/kde-settings/kde-profile/default/share/applications/mimeapps.list
 --- kde-settings-19-23-orig/usr/share/kde-settings/kde-profile/default/share/applications/mimeapps.list	2012-05-01 02:57:22.000000000 +1000
-+++ kde-settings-19-23/usr/share/kde-settings/kde-profile/default/share/applications/mimeapps.list	2013-06-10 12:17:54.754600424 +1000
-@@ -1,3 +1,16 @@
++++ kde-settings-19-23/usr/share/kde-settings/kde-profile/default/share/applications/mimeapps.list	2013-09-24 22:12:52.415369997 +1000
+@@ -1,3 +1,42 @@
  [Added Associations]
  application/x-bittorrent=kde4-ktorrent.desktop;kde4-kget.desktop;
  application/x-rpm=kde4-apper_installer.desktop;gpk-install-local-file.desktop;
-+application/xhtml+xml=firefox.desktop;kde4-kfmclient_html.desktop;kde4-kwrite.desktop;calibre-gui.desktop;calibre-ebook-viewer.desktop;kde4-kate.desktop;libreoffice-writer.desktop;
++application/xhtml+xml=firefox.desktop;kde4-kfmclient_html.desktop;kde4-kate.desktop;kde4-kwrite.desktop;libreoffice-writer.desktop;kde4-okularApplication_txt.desktop;calibre-gui.desktop;calibre-ebook-viewer.desktop;
++audio/aac=vlc.desktop;kde4-amarok.desktop;audacity.desktop;kde4-kid3.desktop;
++audio/ac3=vlc.desktop;ghb.desktop;audacity.desktop;
++audio/flac=vlc.desktop;ghb.desktop;kde4-amarok.desktop;audacity.desktop;kde4-kid3.desktop;
++audio/mp4=vlc.desktop;kde4-amarok.desktop;ghb.desktop;audacity.desktop;kde4-kid3.desktop;
++audio/mpeg=vlc.desktop;kde4-amarok.desktop;ghb.desktop;audacity.desktop;kde4-kid3.desktop;
++audio/ogg=vlc.desktop;kde4-amarok.desktop;ghb.desktop;kde4-amarok_containers.desktop;audacity.desktop;kde4-kid3.desktop;
 +audio/vnd.rn-realaudio=vlc.desktop;miro.desktop;kde4-amarok.desktop;
-+audio/x-flac+ogg=vlc.desktop;kde4-amarok.desktop;kde4-kid3.desktop;ghb.desktop;miro.desktop;kde4-amarok_containers.desktop;audacity.desktop;
++audio/x-flac+ogg=vlc.desktop;kde4-amarok.desktop;kde4-kid3.desktop;ghb.desktop;kde4-amarok_containers.desktop;audacity.desktop;
++audio/x-m4b=vlc.desktop;kde4-amarok.desktop;ghb.desktop;audacity.desktop;kde4-kid3.desktop;
++audio/x-matroska=vlc.desktop;ghb.desktop;
++audio/x-ms-wma=vlc.desktop;kde4-amarok.desktop;kde4-amarok_containers.desktop;audacity.desktop;
 +audio/x-pn-realaudio-plugin=vlc.desktop;miro.desktop;
-+audio/x-speex+ogg=vlc.desktop;kde4-kid3.desktop;ghb.desktop;miro.desktop;kde4-amarok.desktop;kde4-amarok_containers.desktop;audacity.desktop;
++audio/x-speex=vlc.desktop;kde4-amarok.desktop;kde4-kid3.desktop;
++audio/x-speex+ogg=vlc.desktop;kde4-amarok.desktop;ghb.desktop;kde4-amarok_containers.desktop;audacity.desktop;kde4-kid3.desktop;
++audio/x-vorbis+ogg=vlc.desktop;kde4-amarok.desktop;kde4-amarok_containers.desktop;ghb.desktop;audacity.desktop;kde4-kid3.desktop;
++audio/x-wav=vlc.desktop;kde4-amarok.desktop;audacity.desktop;
 +text/html=firefox.desktop;kde4-kfmclient_html.desktop;calibre-gui.desktop;calibre-ebook-viewer.desktop;kde4-kwrite.desktop;kde4-kate.desktop;libreoffice-writer.desktop;
++video/3gpp2=vlc.desktop;ghb.desktop;
++video/mp4=vlc.desktop;ghb.desktop;
++video/mpeg=vlc.desktop;ghb.desktop;audacity.desktop;
++video/ogg=vlc.desktop;ghb.desktop;kde4-amarok_containers.desktop;audacity.desktop;kde4-kid3.desktop;
++video/quicktime=vlc.desktop;ghb.desktop;
 +video/vnd.mpegurl=vlc.desktop;kde4-kwrite.desktop;kde4-kate.desktop;libreoffice-writer.desktop;calibre-gui.desktop;calibre-ebook-viewer.desktop;
 +video/vnd.rn-realvideo=vlc.desktop;miro.desktop;
++video/wavelet=vlc.desktop;
++video/x-matroska=vlc.desktop;ghb.desktop;
++video/x-ms-asf=vlc.desktop;kde4-amarok_containers.desktop;
++video/x-ms-wmp=vlc.desktop;kde4-amarok_containers.desktop;
++video/x-ms-wmv=vlc.desktop;kde4-amarok_containers.desktop;
++video/x-msvideo=vlc.desktop;ghb.desktop;
++video/x-ogm+ogg=vlc.desktop;ghb.desktop;kde4-amarok_containers.desktop;audacity.desktop;kde4-kid3.desktop;
++video/x-theora+ogg=vlc.desktop;ghb.desktop;kde4-amarok_containers.desktop;audacity.desktop;kde4-kid3.desktop;
 +x-content/audio-cdda=vlc.desktop;kde4-amarok.desktop;
-+x-content/audio-dvd=vlc.desktop;kde4-amarok.desktop;
-+x-content/audio-player=vlc.desktop;kde4-amarok.desktop;
 +x-content/ebook-reader=calibre-gui.desktop;
 +x-content/video-bluray=vlc.desktop;
++x-content/video-dvd=vlc.desktop;ghb.desktop;
++x-content/video-svcd=vlc.desktop;ghb.desktop;
++x-content/video-vcd=vlc.desktop;ghb.desktop;
 diff -Nurd kde-settings-19-23-orig/usr/share/kde-settings/kde-profile/default/share/config/activitymanagerrc kde-settings-19-23/usr/share/kde-settings/kde-profile/default/share/config/activitymanagerrc
 --- kde-settings-19-23-orig/usr/share/kde-settings/kde-profile/default/share/config/activitymanagerrc	1970-01-01 10:00:00.000000000 +1000
-+++ kde-settings-19-23/usr/share/kde-settings/kde-profile/default/share/config/activitymanagerrc	2013-06-10 11:51:18.366722281 +1000
++++ kde-settings-19-23/usr/share/kde-settings/kde-profile/default/share/config/activitymanagerrc	2013-09-24 22:04:44.233805318 +1000
 @@ -0,0 +1,5 @@
 +[activities]
 +5a2687b3-214c-47e1-bff4-f73f420153bd=New Activity
@@ -29,32 +55,32 @@ diff -Nurd kde-settings-19-23-orig/usr/share/kde-settings/kde-profile/default/sh
 +currentActivity=5a2687b3-214c-47e1-bff4-f73f420153bd
 diff -Nurd kde-settings-19-23-orig/usr/share/kde-settings/kde-profile/default/share/config/default_components kde-settings-19-23/usr/share/kde-settings/kde-profile/default/share/config/default_components
 --- kde-settings-19-23-orig/usr/share/kde-settings/kde-profile/default/share/config/default_components	1970-01-01 10:00:00.000000000 +1000
-+++ kde-settings-19-23/usr/share/kde-settings/kde-profile/default/share/config/default_components	2013-06-10 11:51:18.366722281 +1000
++++ kde-settings-19-23/usr/share/kde-settings/kde-profile/default/share/config/default_components	2013-09-24 22:04:44.233805318 +1000
 @@ -0,0 +1,2 @@
 +[InstantMessenger]
 +imClient[$e]=ktp-contactlist
 diff -Nurd kde-settings-19-23-orig/usr/share/kde-settings/kde-profile/default/share/config/dolphinrc kde-settings-19-23/usr/share/kde-settings/kde-profile/default/share/config/dolphinrc
 --- kde-settings-19-23-orig/usr/share/kde-settings/kde-profile/default/share/config/dolphinrc	1970-01-01 10:00:00.000000000 +1000
-+++ kde-settings-19-23/usr/share/kde-settings/kde-profile/default/share/config/dolphinrc	2013-06-10 11:51:18.366722281 +1000
++++ kde-settings-19-23/usr/share/kde-settings/kde-profile/default/share/config/dolphinrc	2013-09-24 22:04:44.233805318 +1000
 @@ -0,0 +1,2 @@
 +[PreviewSettings]
 +Plugins=directorythumbnail,djvuthumbnail,fontthumbnail,htmlthumbnail,imagethumbnail,jpegthumbnail,gsthumbnail,rawthumbnail,svgthumbnail,textthumbnail,ffmpegthumbs
 diff -Nurd kde-settings-19-23-orig/usr/share/kde-settings/kde-profile/default/share/config/kcmcddbrc kde-settings-19-23/usr/share/kde-settings/kde-profile/default/share/config/kcmcddbrc
 --- kde-settings-19-23-orig/usr/share/kde-settings/kde-profile/default/share/config/kcmcddbrc	1970-01-01 10:00:00.000000000 +1000
-+++ kde-settings-19-23/usr/share/kde-settings/kde-profile/default/share/config/kcmcddbrc	2013-06-10 11:51:18.366722281 +1000
++++ kde-settings-19-23/usr/share/kde-settings/kde-profile/default/share/config/kcmcddbrc	2013-09-24 22:04:44.234805314 +1000
 @@ -0,0 +1,2 @@
 +[Lookup]
 +MusicBrainzLookupEnabled=true
 diff -Nurd kde-settings-19-23-orig/usr/share/kde-settings/kde-profile/default/share/config/kcmfonts kde-settings-19-23/usr/share/kde-settings/kde-profile/default/share/config/kcmfonts
 --- kde-settings-19-23-orig/usr/share/kde-settings/kde-profile/default/share/config/kcmfonts	1970-01-01 10:00:00.000000000 +1000
-+++ kde-settings-19-23/usr/share/kde-settings/kde-profile/default/share/config/kcmfonts	2013-06-10 11:51:18.366722281 +1000
++++ kde-settings-19-23/usr/share/kde-settings/kde-profile/default/share/config/kcmfonts	2013-09-24 22:04:44.234805314 +1000
 @@ -0,0 +1,3 @@
 +[General]
 +dontChangeAASettings=false
 +forceFontDPI=96
 diff -Nurd kde-settings-19-23-orig/usr/share/kde-settings/kde-profile/default/share/config/kdeglobals kde-settings-19-23/usr/share/kde-settings/kde-profile/default/share/config/kdeglobals
 --- kde-settings-19-23-orig/usr/share/kde-settings/kde-profile/default/share/config/kdeglobals	2010-09-04 00:30:38.000000000 +1000
-+++ kde-settings-19-23/usr/share/kde-settings/kde-profile/default/share/config/kdeglobals	2013-06-10 12:18:58.889268410 +1000
++++ kde-settings-19-23/usr/share/kde-settings/kde-profile/default/share/config/kdeglobals	2013-09-24 22:04:44.234805314 +1000
 @@ -3,6 +3,9 @@
  AutoCheckAccelerators=false
  
@@ -74,7 +100,7 @@ diff -Nurd kde-settings-19-23-orig/usr/share/kde-settings/kde-profile/default/sh
 +SingleClick=false
 diff -Nurd kde-settings-19-23-orig/usr/share/kde-settings/kde-profile/default/share/config/kde.notifyrc kde-settings-19-23/usr/share/kde-settings/kde-profile/default/share/config/kde.notifyrc
 --- kde-settings-19-23-orig/usr/share/kde-settings/kde-profile/default/share/config/kde.notifyrc	1970-01-01 10:00:00.000000000 +1000
-+++ kde-settings-19-23/usr/share/kde-settings/kde-profile/default/share/config/kde.notifyrc	2013-06-10 11:51:18.366722281 +1000
++++ kde-settings-19-23/usr/share/kde-settings/kde-profile/default/share/config/kde.notifyrc	2013-09-24 22:04:44.234805314 +1000
 @@ -0,0 +1,5 @@
 +[Event/exitkde]
 +Action=
@@ -83,7 +109,7 @@ diff -Nurd kde-settings-19-23-orig/usr/share/kde-settings/kde-profile/default/sh
 +Logfile=
 diff -Nurd kde-settings-19-23-orig/usr/share/kde-settings/kde-profile/default/share/config/kickoffrc kde-settings-19-23/usr/share/kde-settings/kde-profile/default/share/config/kickoffrc
 --- kde-settings-19-23-orig/usr/share/kde-settings/kde-profile/default/share/config/kickoffrc	1970-01-01 10:00:00.000000000 +1000
-+++ kde-settings-19-23/usr/share/kde-settings/kde-profile/default/share/config/kickoffrc	2013-06-10 11:51:18.366722281 +1000
++++ kde-settings-19-23/usr/share/kde-settings/kde-profile/default/share/config/kickoffrc	2013-09-24 22:04:44.235805309 +1000
 @@ -0,0 +1,9 @@
 +[Favorites]
 +FavoriteURLs=/usr/share/applications/kde4/apper.desktop,/usr/share/applications/kde4/systemsettings.desktop,/usr/share/applications/firefox.desktop,/usr/share/applications/kde4/dolphin.desktop,/usr/share/applications/kde4/konsole.desktop
@@ -96,7 +122,7 @@ diff -Nurd kde-settings-19-23-orig/usr/share/kde-settings/kde-profile/default/sh
 +
 diff -Nurd kde-settings-19-23-orig/usr/share/kde-settings/kde-profile/default/share/config/ksmserverrc kde-settings-19-23/usr/share/kde-settings/kde-profile/default/share/config/ksmserverrc
 --- kde-settings-19-23-orig/usr/share/kde-settings/kde-profile/default/share/config/ksmserverrc	2009-01-17 01:25:39.000000000 +1100
-+++ kde-settings-19-23/usr/share/kde-settings/kde-profile/default/share/config/ksmserverrc	2013-06-10 11:51:18.367722277 +1000
++++ kde-settings-19-23/usr/share/kde-settings/kde-profile/default/share/config/ksmserverrc	2013-09-24 22:04:44.235805309 +1000
 @@ -1,4 +1,5 @@
  [General]
 +loginMode=restoreSavedSession
@@ -105,7 +131,7 @@ diff -Nurd kde-settings-19-23-orig/usr/share/kde-settings/kde-profile/default/sh
  [LegacySession: saved at previous logout]
 diff -Nurd kde-settings-19-23-orig/usr/share/kde-settings/kde-profile/default/share/config/servicetype_profilerc kde-settings-19-23/usr/share/kde-settings/kde-profile/default/share/config/servicetype_profilerc
 --- kde-settings-19-23-orig/usr/share/kde-settings/kde-profile/default/share/config/servicetype_profilerc	1970-01-01 10:00:00.000000000 +1000
-+++ kde-settings-19-23/usr/share/kde-settings/kde-profile/default/share/config/servicetype_profilerc	2013-06-10 11:51:18.367722277 +1000
++++ kde-settings-19-23/usr/share/kde-settings/kde-profile/default/share/config/servicetype_profilerc	2013-09-24 22:04:44.235805309 +1000
 @@ -0,0 +1,6 @@
 +[PhononBackend]
 +Entry0_Preference=2
@@ -115,7 +141,7 @@ diff -Nurd kde-settings-19-23-orig/usr/share/kde-settings/kde-profile/default/sh
 +NumberOfEntries=2
 diff -Nurd kde-settings-19-23-orig/usr/share/kde-settings/kde-profile/default/share/config/sonnetrc kde-settings-19-23/usr/share/kde-settings/kde-profile/default/share/config/sonnetrc
 --- kde-settings-19-23-orig/usr/share/kde-settings/kde-profile/default/share/config/sonnetrc	1970-01-01 10:00:00.000000000 +1000
-+++ kde-settings-19-23/usr/share/kde-settings/kde-profile/default/share/config/sonnetrc	2013-06-10 12:18:27.985428584 +1000
++++ kde-settings-19-23/usr/share/kde-settings/kde-profile/default/share/config/sonnetrc	2013-09-24 22:04:44.235805309 +1000
 @@ -0,0 +1,7 @@
 +[Spelling]
 +backgroundCheckerEnabled=true
