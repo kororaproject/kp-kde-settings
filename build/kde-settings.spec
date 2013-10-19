@@ -5,13 +5,14 @@
 Summary: Config files for kde
 Name:    kde-settings
 Version: 19
-Release: %{rel}.2%{?dist}
+Release: %{rel}.2%{?dist}.2
 
 License: MIT
 Url:     http://fedorahosted.org/kde-settings
 Source0: https://fedorahosted.org/releases/k/d/kde-settings/%{name}-%{version}-%{rel}.tar.xz
 Source1: COPYING
-Patch0:  korora-kdesettings.patch
+#Patch0:  korora-kdesettings.patch
+Source2: kde-settings-korora.tar.gz
 BuildArch: noarch
 
 BuildRequires: kde-filesystem
@@ -102,7 +103,8 @@ Requires: pciutils
 
 %prep
 %setup -q -n %{name}-%{version}-%{rel}
-%patch0 -p1
+#%patch0 -p1
+tar -xf %{SOURCE2}
 
 %build
 # Intentionally left blank.  Nothing to see here.

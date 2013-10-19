@@ -1,6 +1,18 @@
-diff -Nurd kde-settings-19-23-orig/usr/share/kde-settings/kde-profile/default/share/applications/mimeapps.list kde-settings-19-23/usr/share/kde-settings/kde-profile/default/share/applications/mimeapps.list
---- kde-settings-19-23-orig/usr/share/kde-settings/kde-profile/default/share/applications/mimeapps.list	2012-05-01 02:57:22.000000000 +1000
-+++ kde-settings-19-23/usr/share/kde-settings/kde-profile/default/share/applications/mimeapps.list	2013-09-24 22:12:52.415369997 +1000
+diff -Nurd kde-settings-19-23/etc/kde/kdm/kdmrc kde-settings-19-23-new/etc/kde/kdm/kdmrc
+--- kde-settings-19-23/etc/kde/kdm/kdmrc	2013-05-31 22:59:28.000000000 +1000
++++ kde-settings-19-23-new/etc/kde/kdm/kdmrc	2013-10-19 18:19:36.263140901 +1100
+@@ -313,7 +313,7 @@
+ # - %m -> the machine (hardware) type
+ # - %% -> a single %
+ # Default is "Welcome to %s at %n"
+-GreetString=Fedora 19 (Schrödinger's Cat)
++GreetString=Korora 19 (Bruce)
+ # The font for the greeter headline.
+ # Default is "charter,24,bold"
+ GreetFont=Sans,16,-1,5,75,0,0,0,0,0
+diff -Nurd kde-settings-19-23/usr/share/kde-settings/kde-profile/default/share/applications/mimeapps.list kde-settings-19-23-new/usr/share/kde-settings/kde-profile/default/share/applications/mimeapps.list
+--- kde-settings-19-23/usr/share/kde-settings/kde-profile/default/share/applications/mimeapps.list	2012-05-01 02:57:22.000000000 +1000
++++ kde-settings-19-23-new/usr/share/kde-settings/kde-profile/default/share/applications/mimeapps.list	2013-10-19 18:19:36.263140901 +1100
 @@ -1,3 +1,42 @@
  [Added Associations]
  application/x-bittorrent=kde4-ktorrent.desktop;kde4-kget.desktop;
@@ -44,43 +56,160 @@ diff -Nurd kde-settings-19-23-orig/usr/share/kde-settings/kde-profile/default/sh
 +x-content/video-dvd=vlc.desktop;ghb.desktop;
 +x-content/video-svcd=vlc.desktop;ghb.desktop;
 +x-content/video-vcd=vlc.desktop;ghb.desktop;
-diff -Nurd kde-settings-19-23-orig/usr/share/kde-settings/kde-profile/default/share/config/activitymanagerrc kde-settings-19-23/usr/share/kde-settings/kde-profile/default/share/config/activitymanagerrc
---- kde-settings-19-23-orig/usr/share/kde-settings/kde-profile/default/share/config/activitymanagerrc	1970-01-01 10:00:00.000000000 +1000
-+++ kde-settings-19-23/usr/share/kde-settings/kde-profile/default/share/config/activitymanagerrc	2013-09-24 22:04:44.233805318 +1000
+diff -Nurd kde-settings-19-23/usr/share/kde-settings/kde-profile/default/share/apps/plasma-desktop/init/00-defaultLayout.js kde-settings-19-23-new/usr/share/kde-settings/kde-profile/default/share/apps/plasma-desktop/init/00-defaultLayout.js
+--- kde-settings-19-23/usr/share/kde-settings/kde-profile/default/share/apps/plasma-desktop/init/00-defaultLayout.js	2011-10-16 04:39:39.000000000 +1100
++++ kde-settings-19-23-new/usr/share/kde-settings/kde-profile/default/share/apps/plasma-desktop/init/00-defaultLayout.js	2013-10-19 18:19:36.264140894 +1100
+@@ -1,52 +1,70 @@
+-loadTemplate("org.kde.plasma-desktop.defaultPanel")
++// ---------------------------------- DATA ---------------------------------- //
++/*** Maps widget and plugin names to keyboard shortcuts */
++var keyMap = {
++    launcher: 'Alt+F1',
++    battery: 'Battery',
++    'org.kde.networkmanagement': 'Wireless'
++};
+ 
+-function noDisplayEvents(widget, containment)
+-{
+-    widget.writeConfig("displayEvents", false);
++// -------------------------------- FUNCTIONS ------------------------------- //
++function setShortcut(widget) {
++    if (!keyMap[widget.type]) {
++        print("00-defaultLaytout::setShortcut: " + widget.type + " not mapped to a key, but mapping requested");
++        return;
++    }
++    widget.globalShortcut = keyMap[widget.type];
+ }
+ 
+-var findWidgetsTemplate = loadTemplate("org.kde.plasma-desktop.findWidgets");
+-findWidgetsTemplate.findWidgets("digital-clock", noDisplayEvents);
+-
+-function widgetExists(name)
+-{
+-    var widgets = knownWidgetTypes;
+-    for (i in widgets) {
+-        if (widgets[i] == name) {
+-            return true;
+-        }
++function setPluginShortcut(systray) {
++    var name = systray.readConfig('plugin', '');
++    if (!keyMap[name]) {
++        print("00-defaultLaytout::setPluginShortcut: " + name + " not mapped to a key, but mapping requested");
++        return;
+     }
+-
+-    return false;
++    systray.currentConfigGroup = systray.currentConfigGroup.concat("Shortcuts");
++    systray.writeConfig("global", keyMap[name]);
++    systray.currentConfigGroup = systray.currentConfigGroup.splice(-1, 1);
+ }
+ 
+-var topLeftScreen = 0
+-var rect = screenGeometry(0)
+ 
+-// find our "top left" screen to put the folderview on it
+-for (var i = 1; i < screenCount; ++i) {
+-    var g = screenGeometry(i)
++// ---------------------------------- PANEL --------------------------------- //
++var panel = new Panel("panel");
++panel.screen = 0;
++panel.location = "bottom";
++launcher = panel.addWidget("launcher");
++launcher.globalShortcut = "Alt+F1"
++panel.addWidget("showdesktop");
++panel.addWidget("org.kde.showActivityManager");
++panel.addWidget("tasks");
+ 
+-    if (g.x <= rect.x && g.top >= rect.top) {
+-        rect = g
+-        topLeftScreen = i
+-    }
++systray = panel.addWidget("systemtray");
++i = 0;
++if (hasBattery) {
++    systray.currentConfigGroup = new Array("Applets", ++i);
++    systray.writeConfig("plugin", "battery");
++    setPluginShortcut(systray);
+ }
++systray.currentConfigGroup = new Array("Applets", ++i);
++systray.writeConfig("plugin", "org.kde.ktp-presence");
++systray.currentConfigGroup = new Array("Applets", ++i);
++systray.writeConfig("plugin", "printmanager");
++systray.currentConfigGroup = new Array("Applets", ++i);
++systray.writeConfig("plugin", "org.kde.networkmanagement");
++setPluginShortcut(systray);
++systray.currentConfigGroup = new Array("Applets", ++i);
++systray.writeConfig("plugin", "notifier");
+ 
+-var hasFolderview = widgetExists("folderview");
++clock = panel.addWidget("digital-clock");
++clock.writeConfig("displayEvents", "false");
+ 
++// --------------------------------- DESKTOP -------------------------------- //
+ for (var i = 0; i < screenCount; ++i) {
+-    var desktop = new Activity
+-    desktop.name = i18n("Desktop")
++    var desktop = new Activity("folderview")
++    desktop.name = i18n("Folder View Desktop")
+     desktop.screen = i
+     desktop.wallpaperPlugin = 'image'
+     desktop.wallpaperMode = 'SingleImage'
+ 
+-    if (hasFolderview && i == topLeftScreen) {
+-        var folderview = desktop.addWidget("folderview")
+-        folderview.writeConfig("url", "desktop:/")
+-    }
+-
+     //Create more panels for other screens
+     if (i > 0){
+         var panel = new Panel
+@@ -55,5 +73,9 @@
+         panel.height = panels()[i].height = screenGeometry(0).height > 1024 ? 35 : 27
+         var tasks = panel.addWidget("tasks")
+         tasks.writeConfig("showOnlyCurrentScreen", true);
++
++        desktop = Activity("desktop")
++        desktop.screen = i
+     }
+ }
++
+diff -Nurd kde-settings-19-23/usr/share/kde-settings/kde-profile/default/share/config/activitymanagerrc kde-settings-19-23-new/usr/share/kde-settings/kde-profile/default/share/config/activitymanagerrc
+--- kde-settings-19-23/usr/share/kde-settings/kde-profile/default/share/config/activitymanagerrc	1970-01-01 10:00:00.000000000 +1000
++++ kde-settings-19-23-new/usr/share/kde-settings/kde-profile/default/share/config/activitymanagerrc	2013-10-19 18:19:36.264140894 +1100
 @@ -0,0 +1,5 @@
 +[activities]
 +5a2687b3-214c-47e1-bff4-f73f420153bd=New Activity
 +
 +[main]
 +currentActivity=5a2687b3-214c-47e1-bff4-f73f420153bd
-diff -Nurd kde-settings-19-23-orig/usr/share/kde-settings/kde-profile/default/share/config/default_components kde-settings-19-23/usr/share/kde-settings/kde-profile/default/share/config/default_components
---- kde-settings-19-23-orig/usr/share/kde-settings/kde-profile/default/share/config/default_components	1970-01-01 10:00:00.000000000 +1000
-+++ kde-settings-19-23/usr/share/kde-settings/kde-profile/default/share/config/default_components	2013-09-24 22:04:44.233805318 +1000
+diff -Nurd kde-settings-19-23/usr/share/kde-settings/kde-profile/default/share/config/default_components kde-settings-19-23-new/usr/share/kde-settings/kde-profile/default/share/config/default_components
+--- kde-settings-19-23/usr/share/kde-settings/kde-profile/default/share/config/default_components	1970-01-01 10:00:00.000000000 +1000
++++ kde-settings-19-23-new/usr/share/kde-settings/kde-profile/default/share/config/default_components	2013-10-19 18:19:36.264140894 +1100
 @@ -0,0 +1,2 @@
 +[InstantMessenger]
 +imClient[$e]=ktp-contactlist
-diff -Nurd kde-settings-19-23-orig/usr/share/kde-settings/kde-profile/default/share/config/dolphinrc kde-settings-19-23/usr/share/kde-settings/kde-profile/default/share/config/dolphinrc
---- kde-settings-19-23-orig/usr/share/kde-settings/kde-profile/default/share/config/dolphinrc	1970-01-01 10:00:00.000000000 +1000
-+++ kde-settings-19-23/usr/share/kde-settings/kde-profile/default/share/config/dolphinrc	2013-09-24 22:04:44.233805318 +1000
+diff -Nurd kde-settings-19-23/usr/share/kde-settings/kde-profile/default/share/config/dolphinrc kde-settings-19-23-new/usr/share/kde-settings/kde-profile/default/share/config/dolphinrc
+--- kde-settings-19-23/usr/share/kde-settings/kde-profile/default/share/config/dolphinrc	1970-01-01 10:00:00.000000000 +1000
++++ kde-settings-19-23-new/usr/share/kde-settings/kde-profile/default/share/config/dolphinrc	2013-10-19 18:19:36.264140894 +1100
 @@ -0,0 +1,2 @@
 +[PreviewSettings]
 +Plugins=directorythumbnail,djvuthumbnail,fontthumbnail,htmlthumbnail,imagethumbnail,jpegthumbnail,gsthumbnail,rawthumbnail,svgthumbnail,textthumbnail,ffmpegthumbs
-diff -Nurd kde-settings-19-23-orig/usr/share/kde-settings/kde-profile/default/share/config/kcmcddbrc kde-settings-19-23/usr/share/kde-settings/kde-profile/default/share/config/kcmcddbrc
---- kde-settings-19-23-orig/usr/share/kde-settings/kde-profile/default/share/config/kcmcddbrc	1970-01-01 10:00:00.000000000 +1000
-+++ kde-settings-19-23/usr/share/kde-settings/kde-profile/default/share/config/kcmcddbrc	2013-09-24 22:04:44.234805314 +1000
+diff -Nurd kde-settings-19-23/usr/share/kde-settings/kde-profile/default/share/config/kcmcddbrc kde-settings-19-23-new/usr/share/kde-settings/kde-profile/default/share/config/kcmcddbrc
+--- kde-settings-19-23/usr/share/kde-settings/kde-profile/default/share/config/kcmcddbrc	1970-01-01 10:00:00.000000000 +1000
++++ kde-settings-19-23-new/usr/share/kde-settings/kde-profile/default/share/config/kcmcddbrc	2013-10-19 18:19:36.264140894 +1100
 @@ -0,0 +1,2 @@
 +[Lookup]
 +MusicBrainzLookupEnabled=true
-diff -Nurd kde-settings-19-23-orig/usr/share/kde-settings/kde-profile/default/share/config/kcmfonts kde-settings-19-23/usr/share/kde-settings/kde-profile/default/share/config/kcmfonts
---- kde-settings-19-23-orig/usr/share/kde-settings/kde-profile/default/share/config/kcmfonts	1970-01-01 10:00:00.000000000 +1000
-+++ kde-settings-19-23/usr/share/kde-settings/kde-profile/default/share/config/kcmfonts	2013-09-24 22:04:44.234805314 +1000
+diff -Nurd kde-settings-19-23/usr/share/kde-settings/kde-profile/default/share/config/kcmfonts kde-settings-19-23-new/usr/share/kde-settings/kde-profile/default/share/config/kcmfonts
+--- kde-settings-19-23/usr/share/kde-settings/kde-profile/default/share/config/kcmfonts	1970-01-01 10:00:00.000000000 +1000
++++ kde-settings-19-23-new/usr/share/kde-settings/kde-profile/default/share/config/kcmfonts	2013-10-19 18:19:36.265140887 +1100
 @@ -0,0 +1,3 @@
 +[General]
 +dontChangeAASettings=false
 +forceFontDPI=96
-diff -Nurd kde-settings-19-23-orig/usr/share/kde-settings/kde-profile/default/share/config/kdeglobals kde-settings-19-23/usr/share/kde-settings/kde-profile/default/share/config/kdeglobals
---- kde-settings-19-23-orig/usr/share/kde-settings/kde-profile/default/share/config/kdeglobals	2010-09-04 00:30:38.000000000 +1000
-+++ kde-settings-19-23/usr/share/kde-settings/kde-profile/default/share/config/kdeglobals	2013-09-24 22:04:44.234805314 +1000
+diff -Nurd kde-settings-19-23/usr/share/kde-settings/kde-profile/default/share/config/kdeglobals kde-settings-19-23-new/usr/share/kde-settings/kde-profile/default/share/config/kdeglobals
+--- kde-settings-19-23/usr/share/kde-settings/kde-profile/default/share/config/kdeglobals	2010-09-04 00:30:38.000000000 +1000
++++ kde-settings-19-23-new/usr/share/kde-settings/kde-profile/default/share/config/kdeglobals	2013-10-19 18:19:36.265140887 +1100
 @@ -3,6 +3,9 @@
  AutoCheckAccelerators=false
  
@@ -98,18 +227,18 @@ diff -Nurd kde-settings-19-23-orig/usr/share/kde-settings/kde-profile/default/sh
 +
 +[KDE]
 +SingleClick=false
-diff -Nurd kde-settings-19-23-orig/usr/share/kde-settings/kde-profile/default/share/config/kde.notifyrc kde-settings-19-23/usr/share/kde-settings/kde-profile/default/share/config/kde.notifyrc
---- kde-settings-19-23-orig/usr/share/kde-settings/kde-profile/default/share/config/kde.notifyrc	1970-01-01 10:00:00.000000000 +1000
-+++ kde-settings-19-23/usr/share/kde-settings/kde-profile/default/share/config/kde.notifyrc	2013-09-24 22:04:44.234805314 +1000
+diff -Nurd kde-settings-19-23/usr/share/kde-settings/kde-profile/default/share/config/kde.notifyrc kde-settings-19-23-new/usr/share/kde-settings/kde-profile/default/share/config/kde.notifyrc
+--- kde-settings-19-23/usr/share/kde-settings/kde-profile/default/share/config/kde.notifyrc	1970-01-01 10:00:00.000000000 +1000
++++ kde-settings-19-23-new/usr/share/kde-settings/kde-profile/default/share/config/kde.notifyrc	2013-10-19 18:19:36.265140887 +1100
 @@ -0,0 +1,5 @@
 +[Event/exitkde]
 +Action=
 +Execute=
 +KTTS=
 +Logfile=
-diff -Nurd kde-settings-19-23-orig/usr/share/kde-settings/kde-profile/default/share/config/kickoffrc kde-settings-19-23/usr/share/kde-settings/kde-profile/default/share/config/kickoffrc
---- kde-settings-19-23-orig/usr/share/kde-settings/kde-profile/default/share/config/kickoffrc	1970-01-01 10:00:00.000000000 +1000
-+++ kde-settings-19-23/usr/share/kde-settings/kde-profile/default/share/config/kickoffrc	2013-09-24 22:04:44.235805309 +1000
+diff -Nurd kde-settings-19-23/usr/share/kde-settings/kde-profile/default/share/config/kickoffrc kde-settings-19-23-new/usr/share/kde-settings/kde-profile/default/share/config/kickoffrc
+--- kde-settings-19-23/usr/share/kde-settings/kde-profile/default/share/config/kickoffrc	1970-01-01 10:00:00.000000000 +1000
++++ kde-settings-19-23-new/usr/share/kde-settings/kde-profile/default/share/config/kickoffrc	2013-10-19 18:19:36.265140887 +1100
 @@ -0,0 +1,9 @@
 +[Favorites]
 +FavoriteURLs=/usr/share/applications/kde4/apper.desktop,/usr/share/applications/kde4/systemsettings.desktop,/usr/share/applications/firefox.desktop,/usr/share/applications/kde4/dolphin.desktop,/usr/share/applications/kde4/konsole.desktop
@@ -120,18 +249,81 @@ diff -Nurd kde-settings-19-23-orig/usr/share/kde-settings/kde-profile/default/sh
 +[KRunner][PlasmaRunnerManager]
 +pluginWhiteList=places,shell,services,bookmarks,recentdocuments,locations
 +
-diff -Nurd kde-settings-19-23-orig/usr/share/kde-settings/kde-profile/default/share/config/ksmserverrc kde-settings-19-23/usr/share/kde-settings/kde-profile/default/share/config/ksmserverrc
---- kde-settings-19-23-orig/usr/share/kde-settings/kde-profile/default/share/config/ksmserverrc	2009-01-17 01:25:39.000000000 +1100
-+++ kde-settings-19-23/usr/share/kde-settings/kde-profile/default/share/config/ksmserverrc	2013-09-24 22:04:44.235805309 +1000
+diff -Nurd kde-settings-19-23/usr/share/kde-settings/kde-profile/default/share/config/konquerorrc kde-settings-19-23-new/usr/share/kde-settings/kde-profile/default/share/config/konquerorrc
+--- kde-settings-19-23/usr/share/kde-settings/kde-profile/default/share/config/konquerorrc	2013-05-22 23:14:41.000000000 +1000
++++ kde-settings-19-23-new/usr/share/kde-settings/kde-profile/default/share/config/konquerorrc	2013-10-19 18:19:36.266140881 +1100
+@@ -24,4 +24,4 @@
+ WordWrapText=true
+ 
+ [UserSettings]
+-HomeURL=http://start.fedoraproject.org/
++HomeURL=http://kororaproject.org/
+diff -Nurd kde-settings-19-23/usr/share/kde-settings/kde-profile/default/share/config/konversationrc kde-settings-19-23-new/usr/share/kde-settings/kde-profile/default/share/config/konversationrc
+--- kde-settings-19-23/usr/share/kde-settings/kde-profile/default/share/config/konversationrc	2009-09-09 01:16:56.000000000 +1000
++++ kde-settings-19-23-new/usr/share/kde-settings/kde-profile/default/share/config/konversationrc	2013-10-19 18:19:36.266140881 +1100
+@@ -1,13 +1,16 @@
+ [Channel 0]
+-Name=#fedora
++Name=#korora
+ 
+ [Channel 1]
+-Name=#fedora-kde
++Name=#fedora
+ 
+ [Channel 2]
+-Name=#kde
++Name=#fedora-kde
+ 
+ [Channel 3]
++Name=#kde
++
++[Channel 4]
+ Name=#konversation
+ 
+ [Server 0]
+@@ -17,7 +20,7 @@
+ 
+ [ServerGroup 0]
+ AutoConnect=false
+-AutoJoinChannels=Channel 0,Channel 1,Channel 2,Channel 3
++AutoJoinChannels=Channel 0,Channel 1,Channel 2,Channel 3,Channel 4
+ EnableNotifications=true
+ Expanded=false
+ Name=Freenode
+diff -Nurd kde-settings-19-23/usr/share/kde-settings/kde-profile/default/share/config/ksmserverrc kde-settings-19-23-new/usr/share/kde-settings/kde-profile/default/share/config/ksmserverrc
+--- kde-settings-19-23/usr/share/kde-settings/kde-profile/default/share/config/ksmserverrc	2009-01-17 01:25:39.000000000 +1100
++++ kde-settings-19-23-new/usr/share/kde-settings/kde-profile/default/share/config/ksmserverrc	2013-10-19 18:19:36.266140881 +1100
 @@ -1,4 +1,5 @@
  [General]
 +loginMode=restoreSavedSession
  screenCount=1
  
  [LegacySession: saved at previous logout]
-diff -Nurd kde-settings-19-23-orig/usr/share/kde-settings/kde-profile/default/share/config/servicetype_profilerc kde-settings-19-23/usr/share/kde-settings/kde-profile/default/share/config/servicetype_profilerc
---- kde-settings-19-23-orig/usr/share/kde-settings/kde-profile/default/share/config/servicetype_profilerc	1970-01-01 10:00:00.000000000 +1000
-+++ kde-settings-19-23/usr/share/kde-settings/kde-profile/default/share/config/servicetype_profilerc	2013-09-24 22:04:44.235805309 +1000
+diff -Nurd kde-settings-19-23/usr/share/kde-settings/kde-profile/default/share/config/kwinrc kde-settings-19-23-new/usr/share/kde-settings/kde-profile/default/share/config/kwinrc
+--- kde-settings-19-23/usr/share/kde-settings/kde-profile/default/share/config/kwinrc	2012-01-17 07:38:21.000000000 +1100
++++ kde-settings-19-23-new/usr/share/kde-settings/kde-profile/default/share/config/kwinrc	2013-10-19 18:19:36.267140874 +1100
+@@ -1,3 +1,18 @@
++[Compositing]
++AnimationSpeed=3
++Backend=XRender
++Enabled=true
++GLColorCorrection=false
++GLCore=true
++GLLegacy=false
++GLPreferBufferSwap=a
++GLTextureFilter=2
++GraphicsSystem=native
++HiddenPreviews=5
++OpenGLIsUnsafe=true
++UnredirectFullscreen=false
++XRenderSmoothScale=false
++
+ [Style]
+ PluginLib=kwin3_oxygen
+ ShowToolTips=true
+diff -Nurd kde-settings-19-23/usr/share/kde-settings/kde-profile/default/share/config/servicetype_profilerc kde-settings-19-23-new/usr/share/kde-settings/kde-profile/default/share/config/servicetype_profilerc
+--- kde-settings-19-23/usr/share/kde-settings/kde-profile/default/share/config/servicetype_profilerc	1970-01-01 10:00:00.000000000 +1000
++++ kde-settings-19-23-new/usr/share/kde-settings/kde-profile/default/share/config/servicetype_profilerc	2013-10-19 18:19:36.267140874 +1100
 @@ -0,0 +1,6 @@
 +[PhononBackend]
 +Entry0_Preference=2
@@ -139,9 +331,9 @@ diff -Nurd kde-settings-19-23-orig/usr/share/kde-settings/kde-profile/default/sh
 +Entry1_Preference=1
 +Entry1_Service=phononbackends/gstreamer.desktop
 +NumberOfEntries=2
-diff -Nurd kde-settings-19-23-orig/usr/share/kde-settings/kde-profile/default/share/config/sonnetrc kde-settings-19-23/usr/share/kde-settings/kde-profile/default/share/config/sonnetrc
---- kde-settings-19-23-orig/usr/share/kde-settings/kde-profile/default/share/config/sonnetrc	1970-01-01 10:00:00.000000000 +1000
-+++ kde-settings-19-23/usr/share/kde-settings/kde-profile/default/share/config/sonnetrc	2013-09-24 22:04:44.235805309 +1000
+diff -Nurd kde-settings-19-23/usr/share/kde-settings/kde-profile/default/share/config/sonnetrc kde-settings-19-23-new/usr/share/kde-settings/kde-profile/default/share/config/sonnetrc
+--- kde-settings-19-23/usr/share/kde-settings/kde-profile/default/share/config/sonnetrc	1970-01-01 10:00:00.000000000 +1000
++++ kde-settings-19-23-new/usr/share/kde-settings/kde-profile/default/share/config/sonnetrc	2013-10-19 18:19:36.267140874 +1100
 @@ -0,0 +1,7 @@
 +[Spelling]
 +backgroundCheckerEnabled=true

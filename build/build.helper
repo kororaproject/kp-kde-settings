@@ -1,0 +1,13 @@
+#!/bin/bash
+
+function build_pre_build {
+  _TARBALL="kde-settings-korora.tar.gz"
+
+  _pushd "${WORKING_PACKAGES_DIR}/${KP_NAME}/build/sources/"
+
+  _info "Creating throbber tarball ..."
+
+  tar -cf "${_TARBALL}" usr etc
+
+  _popd
+}
