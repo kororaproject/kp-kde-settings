@@ -1,11 +1,11 @@
 
-%global rel 23
-%global system_kde_theme_ver 18.91
+%global rel 3
+%global system_kde_theme_ver 19.90
 
 Summary: Config files for kde
 Name:    kde-settings
-Version: 19
-Release: %{rel}.2%{?dist}.2
+Version: 20
+Release: %{rel}%{?dist}.1
 
 License: MIT
 Url:     http://fedorahosted.org/kde-settings
@@ -56,6 +56,14 @@ Requires(post): coreutils grep sed
 Requires(post): kde4-macros(api) = %{_kde4_macros_api}
 %{?systemd_requires}
 %description kdm
+%{summary}.
+
+%package sddm
+Summary: Configuration files for SDDM
+Requires: sddm
+# Until sddm theme version is set directly
+Requires: system-kde-theme >= %{system_kde_theme_ver}
+%description sddm
 %{summary}.
 
 %package ksplash
@@ -123,7 +131,7 @@ ln -sf ../../../etc/kde/kdm %{buildroot}%{_datadir}/config/kdm
 
 # own these
 mkdir -p %{buildroot}%{_localstatedir}/lib/kdm
-mkdir -p %{buildroot}%{_localstatedir}/run/{kdm,xdmctl}
+mkdir -p %{buildroot}%{_localstatedir}/run/{kdm,sddm,xdmctl}
 
 # rhel stuff
 %if 0%{?rhel}
@@ -206,6 +214,11 @@ perl -pi -e "s,^View0_URL=.*,View0_URL=file:///usr/share/doc/HTML/index.html," %
 %attr(0711,root,root) %dir %{_localstatedir}/run/xdmctl
 %{_unitdir}/kdm.service
 
+%files sddm
+%config %{_sysconfdir}/sddm.conf
+%{_tmpfilesdir}/sddm.conf
+%attr(0711,root,root) %dir %{_localstatedir}/run/sddm
+
 %files ksplash
 %{_datadir}/kde-settings/kde-profile/default/share/config/ksplashrc
 
@@ -222,6 +235,25 @@ perl -pi -e "s,^View0_URL=.*,View0_URL=file:///usr/share/doc/HTML/index.html," %
 
 
 %changelog
+* Sat Sep 21 2013 Rex Dieter <rdieter@fedoraproject.org> 20-3.1
+- -sddm: add/fix %%description, *really* own /var/run/sddm
+
+* Sat Sep 21 2013 Rex Dieter <rdieter@fedoraproject.org> 20-3
+- -sddm: create/own /var/run/sddm (#1010590)
+
+* Mon Sep 16 2013 Martin Briza <mbriza@redhat.com> - 20-2
+- typo in system-kde-theme version
+
+* Mon Sep 16 2013 Martin Briza <mbriza@redhat.com> - 20-2
+- sddm subpackage - added the config containing the Heisenbug artwork
+
+* Tue Sep 10 2013 Jaroslav Reznik <jreznik@fedoraproject.org> - 20-1
+- reset Version to match target fedora release (20)
+- default to Heisenbug artwork
+
+* Mon Jul 29 2013 Martin Briza <mbriza@redhat.com> - 19-23.1
+- Fixed a typo in systemd_preun (#989145)
+
 * Fri May 31 2013 Martin Briza <mbriza@redhat.com> - 19-23
 - remove Console login menu option from KDM (#966095)
 
