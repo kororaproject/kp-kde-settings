@@ -1,11 +1,11 @@
 
-%global rel 4
+%global rel 6
 %global system_kde_theme_ver 19.90
 
 Summary: Config files for kde
 Name:    kde-settings
 Version: 20
-Release: %{rel}%{?dist}.1
+Release: %{rel}%{?dist}
 
 License: MIT
 Url:     http://fedorahosted.org/kde-settings
@@ -144,6 +144,8 @@ perl -pi -e "s,^View0_URL=.*,View0_URL=file:///usr/share/doc/HTML/index.html," %
 %doc COPYING
 %config(noreplace) %{_sysconfdir}/profile.d/kde.*
 %{_sysconfdir}/kde/env/env.sh
+%{_sysconfdir}/kde/env/gpg-agent-startup.sh
+%{_sysconfdir}/kde/shutdown/gpg-agent-shutdown.sh
 %{_sysconfdir}/kde/env/gtk2_rc_files.sh
 %if 0%{?fedora}
 %{_sysconfdir}/kde/env/fedora-bookmarks.sh
@@ -222,6 +224,11 @@ perl -pi -e "s,^View0_URL=.*,View0_URL=file:///usr/share/doc/HTML/index.html," %
 
 
 %changelog
+* Thu Nov 07 2013 Rex Dieter <rdieter@fedoraproject.org> 20-6
+- kmixrc: VolumeFeedback=true
+- kdmrc: ConfigVersion 2.4
+- gpg-agent isn't started automatically with KDE anymore (#845492)
+
 * Mon Oct 14 2013 Rex Dieter <rdieter@fedoraproject.org> 20-4
 - drop -sddm
 
