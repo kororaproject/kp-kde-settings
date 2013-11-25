@@ -109,11 +109,11 @@ tar -xf %{SOURCE2}
 %build
 # Intentionally left blank.  Nothing to see here.
 
-
 %install
 mkdir -p %{buildroot}{%{_datadir}/config,%{_sysconfdir}/kde/kdm}
 
 tar cpf - . | tar --directory %{buildroot} -xvpf -
+tar -xf %{SOURCE2}
 
 cp -p %{SOURCE1} .
 
