@@ -1,5 +1,5 @@
 
-%global rel 8
+%global rel 12
 %global system_kde_theme_ver 19.90
 
 Summary: Config files for kde
@@ -224,6 +224,18 @@ perl -pi -e "s,^View0_URL=.*,View0_URL=file:///usr/share/doc/HTML/index.html," %
 
 
 %changelog
+* Tue Nov 26 2013 Rex Dieter <rdieter@fedoraproject.org> 20-12
+- kwalletrc: [Auto Allow] kdewallet=+KDE Daemon
+
+* Tue Nov 26 2013 Rex Dieter <rdieter@fedoraproject.org> 20-11
+- kwalletrc: whitelist/trust a few well-known trusted apps by default
+
+* Tue Nov 26 2013 Rex Dieter <rdieter@fedoraproject.org> 20-10
+- kwalletrc: +Silently Create Initial Wallet=true
+
+* Mon Nov 25 2013 Rex Dieter <rdieter@fedoraproject.org> 20-9
+- plasma4.req: fix bogus self-auto-Requires being generated for script engines
+
 * Tue Nov 19 2013 Rex Dieter <rdieter@fedoraproject.org> 20-8
 - cleanup/fix gpg-agent startup/shutdown
 
