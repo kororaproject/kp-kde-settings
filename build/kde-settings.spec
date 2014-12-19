@@ -1,17 +1,17 @@
 
-%global rel 12
-%global system_kde_theme_ver 19.90
+%global rel 1
+%global system_kde_theme_ver 20.90
 
 Summary: Config files for kde
 Name:    kde-settings
-Version: 20
-Release: %{rel}%{?dist}.1
+Version: 21
+Release: %{rel}%{?dist}
+Epoch:   1
 
 License: MIT
 Url:     http://fedorahosted.org/kde-settings
 Source0: https://fedorahosted.org/releases/k/d/kde-settings/%{name}-%{version}-%{rel}.tar.xz
 Source1: COPYING
-#Patch0:  korora-kdesettings.patch
 Source2: kde-settings-korora.tar.gz
 BuildArch: noarch
 
@@ -103,7 +103,6 @@ Requires: pciutils
 
 %prep
 %setup -q -n %{name}-%{version}-%{rel}
-#%patch0 -p1
 tar -xf %{SOURCE2}
 
 %build
@@ -155,6 +154,12 @@ perl -pi -e "s,^View0_URL=.*,View0_URL=file:///usr/share/doc/HTML/index.html," %
 %{_prefix}/lib/rpm/fileattrs/plasma4.attr
 %{_datadir}/polkit-1/rules.d/11-fedora-kde-policy.rules
 %endif
+# kf5/plasma5 love
+%dir %{_sysconfdir}/xdg/plasma-workspace/
+%{_sysconfdir}/xdg/plasma-workspace/env/env.sh
+%{_sysconfdir}/xdg/plasma-workspace/env/gpg-agent-startup.sh
+%{_sysconfdir}/xdg/plasma-workspace/env/gtk2_rc_files.sh
+%{_sysconfdir}/xdg/plasma-workspace/shutdown/gpg-agent-shutdown.sh
 %config(noreplace) /etc/pam.d/kcheckpass
 %config(noreplace) /etc/pam.d/kscreensaver
 # drop noreplace, so we can be sure to get the new kiosk bits
@@ -224,6 +229,27 @@ perl -pi -e "s,^View0_URL=.*,View0_URL=file:///usr/share/doc/HTML/index.html," %
 
 
 %changelog
+* Tue Sep 02 2014 Rex Dieter <rdieter@fedoraproject.org> 21-1
+- branch for f21 (and new theming)
+
+* Wed Aug 06 2014 Rex Dieter <rdieter@fedoraproject.org> 20-17
+- add kf5/plasma5 support (/etc/xdg/plasma-workspace)
+
+* Thu Jul 03 2014 Rex Dieter <rdieter@fedoraproject.org> 20-16
+- QT_PLUGIN_PATH contains repeated paths (#1115268)
+
+* Wed Jul 02 2014 Rex Dieter <rdieter@fedoraproject.org> 20-15
+- kwalletrc: disable autoclose
+
+* Mon Jun 30 2014 Rex Dieter <rdieter@fedoraproject.org> 20-14
+- baloo default config: index only well-known dirs (#1114216)
+
+* Sun Jun 08 2014 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 20-13.1
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_21_Mass_Rebuild
+
+* Thu May 01 2014 Rex Dieter <rdieter@fedoraproject.org> 20-13
+- /etc/pam.d/kdm: pam-kwallet support
+
 * Tue Nov 26 2013 Rex Dieter <rdieter@fedoraproject.org> 20-12
 - kwalletrc: [Auto Allow] kdewallet=+KDE Daemon
 
