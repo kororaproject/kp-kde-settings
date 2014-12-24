@@ -5,7 +5,7 @@
 Summary: Config files for kde
 Name:    kde-settings
 Version: 21
-Release: %{rel}%{?dist}
+Release: %{rel}%{?dist}.1
 Epoch:   1
 
 License: MIT
@@ -35,7 +35,7 @@ Requires(post): coreutils sed
 
 %package minimal
 Summary: Minimal configuration files for KDE
-Requires: %{name} = %{version}-%{release}
+Requires: %{name} = 1:%{version}-%{release}
 Requires: kde-workspace-ksplash-themes
 Requires: xorg-x11-xinit
 %description minimal
@@ -60,7 +60,7 @@ Requires(post): kde4-macros(api) = %{_kde4_macros_api}
 
 %package ksplash
 Summary: Configuration files for ksplash
-Requires: %{name} = %{version}-%{release}
+Requires: %{name} = 1:%{version}-%{release}
 %if 0%{?fedora}
 Requires: system-ksplash-theme >= %{system_kde_theme_ver}
 %else
@@ -71,7 +71,7 @@ Requires: redhat-logos >= 69.0.0
 
 %package plasma
 Summary: Configuration files for plasma 
-Requires: %{name} = %{version}-%{release}
+Requires: %{name} = 1:%{version}-%{release}
 %if 0%{?fedora}
 Requires: system-plasma-desktoptheme >= %{system_kde_theme_ver}
 %else
@@ -84,7 +84,7 @@ Requires: redhat-logos >= 69.0.0
 Summary: Enable pulseaudio support in KDE
 # nothing here to license
 License: Public Domain
-Requires: %{name} = %{version}-%{release}
+Requires: %{name} = 1:%{version}-%{release}
 Requires: pulseaudio
 Requires: pulseaudio-module-x11
 ## kde3
