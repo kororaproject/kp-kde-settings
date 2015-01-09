@@ -5,7 +5,7 @@
 Summary: Config files for kde
 Name:    kde-settings
 Version: 21
-Release: %{rel}%{?dist}.2
+Release: %{rel}%{?dist}.3
 Epoch:   1
 
 License: MIT
@@ -229,7 +229,7 @@ perl -pi -e "s,^View0_URL=.*,View0_URL=file:///usr/share/doc/HTML/index.html," %
 
 
 %changelog
-* Fri Jan 09 2015 Chris Smart <csmart@kororaproject.org> 21-2.2
+* Fri Jan 09 2015 Chris Smart <csmart@kororaproject.org> 21-2.3
 - touchpadrc: enable tap to click and palm detect by default.
 
 * Thu Jan 01 2015 Rex Dieter <rdieter@fedoraproject.org> 21-2
