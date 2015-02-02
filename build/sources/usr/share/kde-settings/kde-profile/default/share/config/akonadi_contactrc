@@ -1,0 +1,3 @@
+[Phone Dial Settings]
+DialPhoneNumberAction=UseExternalPhoneApplication
+PhoneCommand=linphone -c %n

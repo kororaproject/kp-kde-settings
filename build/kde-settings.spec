@@ -5,7 +5,7 @@
 Summary: Config files for kde
 Name:    kde-settings
 Version: 21
-Release: %{rel}%{?dist}.3
+Release: %{rel}%{?dist}.4
 Epoch:   1
 
 License: MIT
@@ -229,6 +229,9 @@ perl -pi -e "s,^View0_URL=.*,View0_URL=file:///usr/share/doc/HTML/index.html," %
 
 
 %changelog
+* Mon Feb 02 2015 Chris Smart <csmart@kororaproject.org> 21-2.4
+- akonadi_contactrc: set linphone as default dialer, thanks to adsworth
+
 * Fri Jan 09 2015 Chris Smart <csmart@kororaproject.org> 21-2.3
 - touchpadrc: enable tap to click and palm detect by default.
 
