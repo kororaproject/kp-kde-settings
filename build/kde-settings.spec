@@ -1,11 +1,11 @@
 
-%global rel 2
+%global rel 11
 %global system_kde_theme_ver 20.90
 
 Summary: Config files for kde
 Name:    kde-settings
-Version: 21
-Release: %{rel}%{?dist}.4
+Version: 22
+Release: %{rel}%{?dist}
 Epoch:   1
 
 License: MIT
@@ -18,11 +18,15 @@ BuildArch: noarch
 BuildRequires: kde-filesystem
 BuildRequires: systemd
 
+# when kdebugrc was moved here
+Conflicts: kf5-kdelibs4support < 5.7.0-3
+
 Requires: kde-filesystem
 # /etc/pam.d/ ownership
 Requires: pam
 Requires: xdg-user-dirs
-Requires: adwaita-cursor-theme
+## add breeze deps here? probably, need more too -- rex
+Requires: breeze-icon-theme
 %if 0%{?fedora}
 # for 11-fedora-kde-policy.rules
 Requires: polkit-js-engine
@@ -36,7 +40,6 @@ Requires(post): coreutils sed
 %package minimal
 Summary: Minimal configuration files for KDE
 Requires: %{name} = 1:%{version}-%{release}
-Requires: kde-workspace-ksplash-themes
 Requires: xorg-x11-xinit
 %description minimal
 %{summary}.
@@ -58,6 +61,7 @@ Requires(post): kde4-macros(api) = %{_kde4_macros_api}
 %description kdm
 %{summary}.
 
+#FIXME
 %package ksplash
 Summary: Configuration files for ksplash
 Requires: %{name} = 1:%{version}-%{release}
@@ -73,7 +77,7 @@ Requires: redhat-logos >= 69.0.0
 Summary: Configuration files for plasma 
 Requires: %{name} = 1:%{version}-%{release}
 %if 0%{?fedora}
-Requires: system-plasma-desktoptheme >= %{system_kde_theme_ver}
+Requires: system-plasma-theme >= %{system_kde_theme_ver}
 %else
 Requires: redhat-logos >= 69.0.0
 %endif
@@ -124,6 +128,9 @@ ln -sf ../../../etc/kde/kdm %{buildroot}%{_datadir}/config/kdm
 mkdir -p %{buildroot}%{_localstatedir}/lib/kdm
 mkdir -p %{buildroot}%{_localstatedir}/run/{kdm,xdmctl}
 
+# unpackaged files (at least until fixed upstream)
+rm -fv %{buildroot}%{_datadir}/kde-settings/kde-profile/default/share/config/{ksplashrc,plasmarc}
+
 # rhel stuff
 %if 0%{?rhel}
 rm -rf %{buildroot}%{_sysconfdir}/kde/env/fedora-bookmarks.sh \
@@ -149,17 +156,14 @@ perl -pi -e "s,^View0_URL=.*,View0_URL=file:///usr/share/doc/HTML/index.html," %
 %if 0%{?fedora}
 %{_sysconfdir}/kde/env/fedora-bookmarks.sh
 %{_datadir}/kde-settings/
+# these can probably go now -- rex
 %{_prefix}/lib/rpm/plasma4.prov
 %{_prefix}/lib/rpm/plasma4.req
 %{_prefix}/lib/rpm/fileattrs/plasma4.attr
 %{_datadir}/polkit-1/rules.d/11-fedora-kde-policy.rules
 %endif
-# kf5/plasma5 love
-%dir %{_sysconfdir}/xdg/plasma-workspace/
-%{_sysconfdir}/xdg/plasma-workspace/env/env.sh
-%{_sysconfdir}/xdg/plasma-workspace/env/gpg-agent-startup.sh
-%{_sysconfdir}/xdg/plasma-workspace/env/gtk2_rc_files.sh
-%{_sysconfdir}/xdg/plasma-workspace/shutdown/gpg-agent-shutdown.sh
+%config(noreplace) %{_sysconfdir}/xdg/kdebugrc
+%config(noreplace) %{_sysconfdir}/xdg/kdeglobals
 %config(noreplace) /etc/pam.d/kcheckpass
 %config(noreplace) /etc/pam.d/kscreensaver
 # drop noreplace, so we can be sure to get the new kiosk bits
@@ -168,7 +172,6 @@ perl -pi -e "s,^View0_URL=.*,View0_URL=file:///usr/share/doc/HTML/index.html," %
 %dir %{_datadir}/kde-settings/
 %dir %{_datadir}/kde-settings/kde-profile/
 %{_datadir}/kde-settings/kde-profile/default/
-%{_kde4_appsdir}/kconf_update/fedora-kde-display-handler.*
 %if 0%{?rhel}
 %exclude %{_datadir}/kde-settings/kde-profile/default/share/apps/plasma-desktop/init/00-defaultLayout.js
 %endif
@@ -214,21 +217,73 @@ perl -pi -e "s,^View0_URL=.*,View0_URL=file:///usr/share/doc/HTML/index.html," %
 %{_unitdir}/kdm.service
 
 %files ksplash
-%{_datadir}/kde-settings/kde-profile/default/share/config/ksplashrc
+## empty, FIXME
 
 %files plasma
-%{_datadir}/kde-settings/kde-profile/default/share/config/plasmarc
+%config(noreplace) %{_sysconfdir}/xdg/kcminputrc
+%config(noreplace) %{_sysconfdir}/xdg/plasmarc
+%{_datadir}/plasma/shells/org.kde.plasma.desktop/updates/00-start-here-kde-fedora-2.js
+%{_sysconfdir}/xdg/plasma-workspace/env/env.sh
+%{_sysconfdir}/xdg/plasma-workspace/env/gtk2_rc_files.sh
+%{_sysconfdir}/xdg/plasma-workspace/env/gtk3_scrolling.sh
 
 %files pulseaudio
 # nothing, this is a metapackage
 
 %files -n qt-settings
 %doc COPYING
+%config(noreplace) %{_sysconfdir}/xdg/QtProject/qtlogging.ini
 %config(noreplace) %{_sysconfdir}/Trolltech.conf
 %config(noreplace) %{_sysconfdir}/profile.d/qt-graphicssystem.*
 
 
 %changelog
+* Tue Jun 16 2015 Rex Dieter <rdieter@fedoraproject.org> - 22-11
+- env: set GDK_CORE_DEVICE_EVENTS=1 to workaround gtk3 scrolling issues (#1226465)
+- env: omit gpg-agent management, no longer needed (#1229918)
+
+* Wed May 20 2015 Rex Dieter <rdieter@fedoraproject.org> 22-10
+- qt-settings: /etc/xdg/QtProject/qtlogging.ini
+
+* Wed May 20 2015 Rex Dieter <rdieter@fedoraproject.org> 22-9
+- qt-settings: qtlogging.ini: disable *.debug logging
+
+* Wed May 20 2015 Rex Dieter <rdieter@fedoraproject.org> 22-8
+- kcminputrc: explicitly set breeze_cursors theme default (#1199521)
+
+* Wed May 13 2015 Jan Grulich <jgrulich@redhat.com> - 22-7
+- update kickoff icon from working location
+
+* Wed May 13 2015 Jan Grulich <jgrulich@redhat.com> - 22-6
+- use fedora icon in kickoff
+
+* Wed Apr 22 2015 Rex Dieter <rdieter@fedoraproject.org> 22-4
+- kdmrc: fix kdm theme #1214323)
+
+* Wed Apr 15 2015 Rex Dieter <rdieter@fedoraproject.org> - 22-3.1
+- -plasma: move plasmarc plasma-workspace/{env,shutdown} here
+- omit kde4 ksplashrc, plasmarc
+
+* Tue Mar 10 2015 Rex Dieter <rdieter@fedoraproject.org> 22-3
+- plasmarc: F22 theme default
+
+* Mon Mar 09 2015 Rex Dieter <rdieter@fedoraproject.org> 22-2.2
+- s/-plasma-desktoptheme/-plasma-theme/ for consistency
+
+* Thu Mar 05 2015 Rex Dieter <rdieter@fedoraproject.org> 22-2.1
+- Conflicts: kf5-kdelibs4support < 5.7.0-3 (#1199108)
+
+* Tue Mar 03 2015 Rex Dieter <rdieter@fedoraproject.org> - 22-2
+- kdeburc: disable debug output
+- kdeglobals: use Sans/Monospace fonts, breeze widgets/icons
+- default gtk config to adwaita (replaces oxygen-gtk)
+
+* Sun Feb 08 2015 Rex Dieter <rdieter@fedoraproject.org> 22-1.1
+- %%config(noreplace) /etc/xdg/kdeglobals
+
+* Sun Feb 08 2015 Rex Dieter <rdieter@fedoraproject.org> 22-1
+- init for f22/plasma5, needs more love
+
 * Mon Feb 02 2015 Chris Smart <csmart@kororaproject.org> 21-2.4
 - akonadi_contactrc: set linphone as default dialer, thanks to adsworth
 
