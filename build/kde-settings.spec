@@ -5,7 +5,7 @@
 Summary: Config files for kde
 Name:    kde-settings
 Version: 22
-Release: %{rel}%{?dist}
+Release: %{rel}%{?dist}.1
 Epoch:   1
 
 License: MIT
@@ -164,6 +164,8 @@ perl -pi -e "s,^View0_URL=.*,View0_URL=file:///usr/share/doc/HTML/index.html," %
 %endif
 %config(noreplace) %{_sysconfdir}/xdg/kdebugrc
 %config(noreplace) %{_sysconfdir}/xdg/kdeglobals
+%config(noreplace) %{_sysconfdir}/xdg/kickoffrc
+%config(noreplace) %{_sysconfdir}/xdg/ksplashrc
 %config(noreplace) /etc/pam.d/kcheckpass
 %config(noreplace) /etc/pam.d/kscreensaver
 # drop noreplace, so we can be sure to get the new kiosk bits
