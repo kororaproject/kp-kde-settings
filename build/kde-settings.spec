@@ -164,6 +164,9 @@ perl -pi -e "s,^View0_URL=.*,View0_URL=file:///usr/share/doc/HTML/index.html," %
 %{_datadir}/polkit-1/rules.d/11-fedora-kde-policy.rules
 %endif
 %config(noreplace) %{_sysconfdir}/xdg/kdebugrc
+%config(noreplace) %{_sysconfdir}/xdg/kdeglobals
+%config(noreplace) %{_sysconfdir}/xdg/kickoffrc
+%config(noreplace) %{_sysconfdir}/xdg/ksplashrc
 %config(noreplace) /etc/pam.d/kcheckpass
 %config(noreplace) /etc/pam.d/kscreensaver
 # drop noreplace, so we can be sure to get the new kiosk bits
@@ -224,6 +227,7 @@ perl -pi -e "s,^View0_URL=.*,View0_URL=file:///usr/share/doc/HTML/index.html," %
 %{_datadir}/plasma/shells/org.kde.plasma.desktop/updates/00-start-here-kde-fedora-2.js
 %{_sysconfdir}/xdg/plasma-workspace/env/env.sh
 %{_sysconfdir}/xdg/plasma-workspace/env/gtk2_rc_files.sh
+%{_sysconfdir}/xdg/plasmarc
 
 %files pulseaudio
 # nothing, this is a metapackage
