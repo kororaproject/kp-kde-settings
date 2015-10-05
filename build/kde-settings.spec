@@ -1,10 +1,10 @@
 
-%global rel 11
-%global system_kde_theme_ver 20.90
+%global rel 4
+%global system_kde_theme_ver 23.0
 
 Summary: Config files for kde
 Name:    kde-settings
-Version: 22
+Version: 23
 Release: %{rel}%{?dist}.1
 Epoch:   1
 
@@ -37,6 +37,7 @@ Requires(post): coreutils sed
 %description
 %{summary}.
 
+## FIXME
 %package minimal
 Summary: Minimal configuration files for KDE
 Requires: %{name} = 1:%{version}-%{release}
@@ -61,7 +62,7 @@ Requires(post): kde4-macros(api) = %{_kde4_macros_api}
 %description kdm
 %{summary}.
 
-#FIXME
+## FIXME
 %package ksplash
 Summary: Configuration files for ksplash
 Requires: %{name} = 1:%{version}-%{release}
@@ -163,9 +164,6 @@ perl -pi -e "s,^View0_URL=.*,View0_URL=file:///usr/share/doc/HTML/index.html," %
 %{_datadir}/polkit-1/rules.d/11-fedora-kde-policy.rules
 %endif
 %config(noreplace) %{_sysconfdir}/xdg/kdebugrc
-%config(noreplace) %{_sysconfdir}/xdg/kdeglobals
-%config(noreplace) %{_sysconfdir}/xdg/kickoffrc
-%config(noreplace) %{_sysconfdir}/xdg/ksplashrc
 %config(noreplace) /etc/pam.d/kcheckpass
 %config(noreplace) /etc/pam.d/kscreensaver
 # drop noreplace, so we can be sure to get the new kiosk bits
@@ -174,6 +172,7 @@ perl -pi -e "s,^View0_URL=.*,View0_URL=file:///usr/share/doc/HTML/index.html," %
 %dir %{_datadir}/kde-settings/
 %dir %{_datadir}/kde-settings/kde-profile/
 %{_datadir}/kde-settings/kde-profile/default/
+%{_datadir}/applications/kde-mimeapps.list
 %if 0%{?rhel}
 %exclude %{_datadir}/kde-settings/kde-profile/default/share/apps/plasma-desktop/init/00-defaultLayout.js
 %endif
@@ -222,12 +221,9 @@ perl -pi -e "s,^View0_URL=.*,View0_URL=file:///usr/share/doc/HTML/index.html," %
 ## empty, FIXME
 
 %files plasma
-%config(noreplace) %{_sysconfdir}/xdg/kcminputrc
-%config(noreplace) %{_sysconfdir}/xdg/plasmarc
 %{_datadir}/plasma/shells/org.kde.plasma.desktop/updates/00-start-here-kde-fedora-2.js
 %{_sysconfdir}/xdg/plasma-workspace/env/env.sh
 %{_sysconfdir}/xdg/plasma-workspace/env/gtk2_rc_files.sh
-%{_sysconfdir}/xdg/plasma-workspace/env/gtk3_scrolling.sh
 
 %files pulseaudio
 # nothing, this is a metapackage
@@ -240,6 +236,19 @@ perl -pi -e "s,^View0_URL=.*,View0_URL=file:///usr/share/doc/HTML/index.html," %
 
 
 %changelog
+* Mon Sep 21 2015 Rex Dieter <rdieter@fedoraproject.org> - 23-4
+- support XDG_CONFIG_DIR (/usr/share/kde-settings/kde-profile/default/xdg)
+- kcminputrc,kdeglobals,plasmarc: explicitly set theming elements
+
+* Tue Sep 01 2015 Rex Dieter <rdieter@fedoraproject.org> 23-3
+- kde-mimeapps.list: s/kde-dolphin.desktop/org.kde.dolphin.desktop/
+
+* Wed Aug 26 2015 Rex Dieter <rdieter@fedoraproject.org> 23-2
+- kde-mimeapps.list: add calligra words,sheets,stage, fix text/plain
+
+* Wed Aug 26 2015 Rex Dieter <rdieter@fedoraproject.org> 23-1
+- init for f23
+
 * Tue Jun 16 2015 Rex Dieter <rdieter@fedoraproject.org> - 22-11
 - env: set GDK_CORE_DEVICE_EVENTS=1 to workaround gtk3 scrolling issues (#1226465)
 - env: omit gpg-agent management, no longer needed (#1229918)
