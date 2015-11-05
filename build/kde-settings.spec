@@ -1,5 +1,5 @@
 
-%global rel 4
+%global rel 7
 %global system_kde_theme_ver 23.0
 
 Summary: Config files for kde
@@ -227,6 +227,8 @@ perl -pi -e "s,^View0_URL=.*,View0_URL=file:///usr/share/doc/HTML/index.html," %
 %{_datadir}/plasma/shells/org.kde.plasma.desktop/updates/00-start-here-kde-fedora-2.js
 %{_sysconfdir}/xdg/plasma-workspace/env/env.sh
 %{_sysconfdir}/xdg/plasma-workspace/env/gtk2_rc_files.sh
+%{_sysconfdir}/xdg/plasma-workspace/env/gtk3_scrolling.sh
+%{_sysconfdir}/xdg/plasma-workspace/shutdown/kuiserver5.sh
 %{_sysconfdir}/xdg/plasmarc
 
 %files pulseaudio
@@ -240,6 +242,15 @@ perl -pi -e "s,^View0_URL=.*,View0_URL=file:///usr/share/doc/HTML/index.html," %
 
 
 %changelog
+* Thu Oct 08 2015 Rex Dieter <rdieter@fedoraproject.org> 23-7
+- workaround lingering kuiserver processes (kde#348123)
+
+* Tue Oct 06 2015 Rex Dieter <rdieter@fedoraproject.org> 23-6
+- restore gtk3 scrolling workaround (#1226465)
+
+* Sat Oct 03 2015 Rex Dieter <rdieter@fedoraproject.org> 23-5
+- baloofilerc: index only well-known document-centric dirs by default (#1235026)
+
 * Mon Sep 21 2015 Rex Dieter <rdieter@fedoraproject.org> - 23-4
 - support XDG_CONFIG_DIR (/usr/share/kde-settings/kde-profile/default/xdg)
 - kcminputrc,kdeglobals,plasmarc: explicitly set theming elements
