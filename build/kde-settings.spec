@@ -5,7 +5,7 @@
 Summary: Config files for kde
 Name:    kde-settings
 Version: 23
-Release: %{rel}%{?dist}.1
+Release: %{rel}%{?dist}.2
 Epoch:   1
 
 License: MIT

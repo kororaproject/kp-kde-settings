@@ -18,6 +18,11 @@ XftAntialias=true
 [WM]
 activeFont=Sans Serif,9,-1,5,50,0,0,0,0,0
 
+[General]
+ColorScheme=Breeze Dark
+Name=Breeze
+shadeSortColumn=true
+
 [Icons]
 Theme=breeze
 
